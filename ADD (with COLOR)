@@ -1,0 +1,21 @@
+@app.route("/add", methods=["GET", "POST"])
+def add():
+    if "user" not in session:
+        return redirect("/login")
+
+    if request.method == "POST":
+        subject = request.form["subject"]
+        day = request.form["day"]
+        time = request.form["time"]
+        color = request.form["color"]
+
+        conn = sqlite3.connect("timetable.db")
+        c = conn.cursor()
+        c.execute("INSERT INTO schedule (subject, day, time, color) VALUES (?,?,?,?)",
+                  (subject, day, time, color))
+        conn.commit()
+        conn.close()
+
+        return redirect("/")
+
+    return render_template("add.html")
