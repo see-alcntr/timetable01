@@ -1,0 +1,12 @@
+<h2>Add Schedule</h2>
+
+<form method="POST">
+    <input name="subject" placeholder="Subject"><br>
+    <input name="day" placeholder="Day"><br>
+    <input name="time" placeholder="Time"><br>
+
+    <label>Color:</label>
+    <input type="color" name="color"><br>
+
+    <button>Save</button>
+</form>
