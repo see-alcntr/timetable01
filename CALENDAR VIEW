@@ -1,0 +1,22 @@
+<h1>📆 Weekly Calendar</h1>
+
+<a href="/">⬅ Back</a>
+
+<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:10px">
+
+{% for day in ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"] %}
+<div>
+    <h3>{{ day }}</h3>
+
+    {% for row in data %}
+        {% if row[2] == day %}
+            <div style="background:{{ row[4] }};padding:5px;margin:5px">
+                {{ row[1] }}<br>
+                {{ row[3] }}
+            </div>
+        {% endif %}
+    {% endfor %}
+</div>
+{% endfor %}
+
+</div>
