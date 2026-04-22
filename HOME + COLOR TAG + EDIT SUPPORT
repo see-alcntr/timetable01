@@ -1,0 +1,12 @@
+@app.route("/")
+def index():
+    if "user" not in session:
+        return redirect("/login")
+
+    conn = sqlite3.connect("timetable.db")
+    c = conn.cursor()
+    c.execute("SELECT * FROM schedule")
+    data = c.fetchall()
+    conn.close()
+
+    return render_template("index.html", data=data)
