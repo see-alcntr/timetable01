@@ -1,0 +1,26 @@
+@app.route("/edit/<int:id>", methods=["GET", "POST"])
+def edit(id):
+    conn = sqlite3.connect("timetable.db")
+    c = conn.cursor()
+
+    if request.method == "POST":
+        subject = request.form["subject"]
+        day = request.form["day"]
+        time = request.form["time"]
+        color = request.form["color"]
+
+        c.execute("""
+        UPDATE schedule 
+        SET subject=?, day=?, time=?, color=? 
+        WHERE id=?
+        """, (subject, day, time, color, id))
+
+        conn.commit()
+        conn.close()
+        return redirect("/")
+
+    c.execute("SELECT * FROM schedule WHERE id=?", (id,))
+    row = c.fetchone()
+    conn.close()
+
+    return render_template("edit.html", row=row)
